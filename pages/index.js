@@ -4,7 +4,7 @@ import Footer from '@components/Footer'
 
 export default function Home() {
   return (
-    var config = {
+    config = {
         type: Phaser.AUTO,
         width: 480,
         height: 850,
@@ -15,7 +15,7 @@ export default function Home() {
         }
     };
 
-    var game = new Phaser.Game(config);
+    game = new Phaser.Game(config);
 
     function preload ()
     {
