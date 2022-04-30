@@ -15,6 +15,9 @@ export default function Home() {
         <p className="description">
           Get started by aaaaaa <code>pages/index.js</code>
         </p>
+        <body>
+          <a href="#" onclick="window.open('file:///D:/Examples/file2.html'); return false">CLICK ME</a>
+        </body>
       </main>
 
       <Footer />
