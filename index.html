@@ -77,10 +77,10 @@
 
         //TERRA (perdre)
         terra = this.physics.add.staticGroup();
-        terra.create(240, 750, 'terra');
+        terra.create(720, 2100, 'terra');
 
         //ENTREPÀ
-        entrepa = this.physics.add.sprite(720, 2200, 'entrepa').setImmovable();
+        entrepa = this.physics.add.sprite(720, 1900, 'entrepa').setImmovable();
         entrepa.body.setAllowGravity(false); 
         entrepa.setScale(6);      
 
@@ -118,10 +118,12 @@
         //TEXTS
         //puntsText = this.add.text(16, 16, 'Punts: 0', { fontSize: '64px', fill: '#000' });
         //videsText = this.add.text(16, 60, 'Vides: 3', { fontSize: '64px', fill: '#000' });
-        fotoPunts = this.add.image(100, 40, 'tPunts');
-        fotoVides = this.add.image(100, 120, 'tVides');
-        puntsText = this.add.text(190, 20, '0', { fontSize: '64px', fill: '#000' });
-        videsText = this.add.text(190, 90, '3', { fontSize: '64px', fill: '#000' });
+        fotoPunts = this.add.image(180, 60, 'tPunts');
+        fotoVides = this.add.image(180, 210, 'tVides');
+        puntsText = this.add.text(320, 15, '0', { fontSize: '128px', fill: '#000' });
+        videsText = this.add.text(320, 160, '3', { fontSize: '128px', fill: '#000' });
+        fotoPunts.setScale(2);
+        fotoVides.setScale(2);
 
         inicialitzar();
         croqueta.anims.play('croqueta', true);
