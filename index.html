@@ -297,18 +297,18 @@
 
     function bombaTerra () {
         bomba.visible = false;
-        bomba.enable = false;
-        bomba.y -= 500;
+        bomba.y  = 2200;
+        bomba.enable = false;        
     }
 
-    function bombaEntrepa () {
+    function bombaEntrepa () {        
         bomba.visible = false;
+        bomba.y = 2200;
         bomba.enable = false;
         nCroquetes = 0;
         dibuixarEntrepa();
         punts = 0;
-        puntsText.setText(punts);
-        bomba.y -= 500;
+        puntsText.setText(punts);        
     }     
 
     function esborrarVides () {
