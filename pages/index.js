@@ -5,23 +5,43 @@ import Footer from '@components/Footer'
 export default function Home() {
   return (
     <div className="container">
-      <Head>
-        <title>Next.js Starter!</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+     <head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+</head>
+<body>
 
-      <main>
-        <Header title="Welcome to my app!" />
-        <p className="description">
-          Get started by aaaaaa <code>pages/index.js</code>
-        </p>
-        <body>
-          <a href="#" onclick="window.open('index.html'); return false">CLICK ME</a>
-          
-        </body>
-      </main>
+    <script>
+    var config = {
+        type: Phaser.AUTO,
+        width: 480,
+        height: 850,
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
 
-      <Footer />
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+        this.load.image('fons', 'assets/fons.png');
+        this.load.image('formatge', 'assets/formatge.png');
+    }
+
+    function create ()
+    {
+        this.add.image(400, 300, 'fons');
+        this.add.image(400, 300, 'formatge');                
+    }
+
+    function update () {
+
+    }
+    </script>
+
+</body>
     </div>
   )
 }
