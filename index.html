@@ -69,6 +69,7 @@
     var botoPlay;
 
     //pantallaFi
+    var botoReiniciar;
 
     function preload ()
     {
@@ -88,6 +89,8 @@
         this.load.image('entrepa4', 'assets/entrepa4.png');
 
         this.load.image('botoPlay', 'assets/botoPlay.png');
+        this.load.image('botoReiniciar', 'assets/botoPlay.png');
+        this.load.image('botoInstruccions', 'assets/botoInstruccions.png');
 
         this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});              
     }    
@@ -177,6 +180,13 @@
         });
         //botoPlay.visible = true;
 
+        botoReiniciar = this.add.sprite(720, 1250, 'botoReiniciar').setInteractive();
+        botoReiniciar.setScale(5);
+        botoReiniciar.on('pointerdown', function () {
+            pantallaInici();
+        });
+        botoReiniciar.visible = false;
+
         pantallaInici();
         //inicialitzar();
         croqueta.anims.play('croqueta', true);
@@ -204,6 +214,7 @@
         fotoPunts.visible = false;
         fotoVides.visible = false;
         puntsText.visible = false;
+        botoReiniciar.visible = false;
 
         botoPlay.visible = true;
     }
@@ -220,6 +231,7 @@
         fotoPunts.visible = true;
         fotoVides.visible = true;
         puntsText.visible = true;
+        botoReiniciar.visible = false;
 
         botoPlay.visible = false;
 
@@ -244,6 +256,8 @@
         fotoPunts.visible = false;
         fotoVides.visible = false;
         puntsText.visible = false;
+
+        botoReiniciar.visible = true;
     }
 
     function moureDreta () {
