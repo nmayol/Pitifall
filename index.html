@@ -27,9 +27,10 @@
     };
     
     var gravetat = 80;
-    var limitEsquerra = 30;
-    var limitDreta = 450;
-    var movLateral = 20;
+    var limitEsquerra = 100;
+    var limitDreta = 1340;
+    var limitSuperior = 200;
+    var movLateral = 30;
 
     var entrepa;
     var croqueta;
@@ -79,20 +80,25 @@
         terra.create(240, 750, 'terra');
 
         //ENTREPÀ
-        entrepa = this.physics.add.sprite(240, 600, 'entrepa').setImmovable();
-        entrepa.body.setAllowGravity(false);       
+        entrepa = this.physics.add.sprite(720, 2200, 'entrepa').setImmovable();
+        entrepa.body.setAllowGravity(false); 
+        entrepa.setScale(6);      
 
         //FLETXA DRETA
-        fletxaDreta = this.add.sprite(450, 700, 'fletxaDreta').setInteractive();
+        fletxaDreta = this.add.sprite(1240, 2300, 'fletxaDreta').setInteractive();
         fletxaDreta.on('pointerdown', function () {            
             moureDreta();
         });
 
+        fletxaDreta.setScale(3);
+
         //FLETXA ESQUERRA
-        fletxaEsquerra = this.add.sprite(30, 700, 'fletxaEsquerra').setInteractive();
+        fletxaEsquerra = this.add.sprite(200, 2300, 'fletxaEsquerra').setInteractive();
         fletxaEsquerra.on('pointerdown', function () {            
             moureEsquerra();
         });
+
+        fletxaEsquerra.setScale(3);
 
         //ANIMACIONS
         this.anims.create({
@@ -146,7 +152,7 @@
     }
 
     function spawnCroqueta () {
-        croqueta.y = 50;
+        croqueta.y = limitSuperior;
         croqueta.x = getRandomInt(limitEsquerra, limitDreta);
     }
 
