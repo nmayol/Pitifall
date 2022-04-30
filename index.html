@@ -221,7 +221,10 @@
     }
 
     function update () {
-        if (estat == 1) {
+        if (estat == 0) {
+            croqueta.visible = false;
+        }
+        else if (estat == 1) {
             if (vides <= 0) {
                 estat = 2;
                 perdut();
