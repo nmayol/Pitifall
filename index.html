@@ -57,8 +57,10 @@
         this.load.image('entrepa', 'assets/entrepa.png');
         this.load.image('fletxaDreta', 'assets/fletxaDreta.png');
         this.load.image('fletxaEsquerra', 'assets/fletxaEsquerra.png');
+        this.load.image('textPunts', 'assets/textPunts');
+        this.load.image('textVides', 'assets/textVides');
 
-        this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 32, frameHeight: 48 });              
+        this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 32*3, frameHeight: 48*3 });              
     }    
 
     function create ()
@@ -107,8 +109,10 @@
         this.physics.add.collider(croqueta, entrepa, entrepaTocat);
 
         //TEXTS
-        puntsText = this.add.text(16, 16, 'Punts: 0', { fontSize: '32px', fill: '#000' });
-        videsText = this.add.text(16, 60, 'Vides: 3', { fontSize: '32px', fill: '#000' });
+        //puntsText = this.add.text(16, 16, 'Punts: 0', { fontSize: '64px', fill: '#000' });
+        //videsText = this.add.text(16, 60, 'Vides: 3', { fontSize: '64px', fill: '#000' });
+        puntsText = this.add.image(16, 16, 'textPunts');
+        videsText = this.add.image(16, 60, 'textVides');
 
         inicialitzar();
     }
