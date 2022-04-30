@@ -103,7 +103,7 @@
         
         //TERRA (perdre)
         terra = this.physics.add.staticGroup();
-        terra.create(750, 2100, 'terra');
+        terra.create(750, 2200, 'terra');
 
         //ENTREPÀ
         entrepa = this.physics.add.sprite(720, yEntrepa, 'entrepa0').setImmovable();
@@ -170,11 +170,14 @@
     }
     //PANTALLA JOC
     function inicialitzar () {
+        //f1.visible = true;
+
         vides = 3;
         punts = 0; 
         nCroquetes = 0;
         spawnCroqueta();
-        run = 1;
+        
+        estat = 1;
     }
 
     //PANTALLA HAS PERDUT
