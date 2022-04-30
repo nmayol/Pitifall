@@ -41,6 +41,14 @@
     var yFormatge = 210;
     var f1, f2, f3;
 
+    //PILA CROQUETES
+    var nCroquetes;
+    let pila = [];
+    var midaCroqueta = 40;
+    var xEntrepa;
+    var yEntrepa = 1800;
+    var c;
+
     var entrepa;
     var croqueta;
     var terra;
@@ -70,6 +78,7 @@
         this.load.image('fletxaEsquerra', 'assets/fletxaEsquerra.png');
         this.load.image('tPunts', 'assets/textPunts.png');
         this.load.image('tVides', 'assets/textVides.png');
+        this.load.image('croquetaQuieta', 'assets/croqueta_quieta.png')
 
         this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});              
     }    
@@ -88,14 +97,14 @@
 
         //CROQUETA
         croqueta = this.physics.add.sprite(100, 200, 'croqueta');
-        croqueta.setCollideWorldBounds(true);        
-
+        croqueta.setCollideWorldBounds(true); 
+        
         //TERRA (perdre)
         terra = this.physics.add.staticGroup();
         terra.create(720, 2100, 'terra');
 
         //ENTREPÀ
-        entrepa = this.physics.add.sprite(720, 1900, 'entrepa').setImmovable();
+        entrepa = this.physics.add.sprite(720, yEntrepa, 'entrepa').setImmovable();
         entrepa.body.setAllowGravity(false); 
         entrepa.setScale(6);      
 
@@ -141,10 +150,12 @@
 
         inicialitzar();
         croqueta.anims.play('croqueta', true);
+
+        c = this.add.sprite(200, 200, 'croquetaQuieta');
     }
 
     function update () {
-        if (vides < 0) {
+        if (vides <= 0) {
             run = false;
             window.alert("has perdut");
         }        
@@ -163,6 +174,7 @@
     function inicialitzar () {
         vides = 3;
         punts = 0; 
+        nCroquetes = 0;
         spawnCroqueta();
         run = true;
     }
@@ -192,11 +204,26 @@
         croqueta.body.gravity.y = gravetat;
     }
 
+    function dibuixarCroquetes () {
+        
+        puntsText.setText("hola");
+    }
+
+    function esborrarCroquetes () {
+
+    }
+
     function entrepaTocat () {
         spawnCroqueta();
 
-        punts += 10;
-        puntsText.setText(punts);
+        nCroquetes++;
+        /*if (nCroquetes == 5) {
+            punts += 100;
+            puntsText.setText(punts);
+            nCroquetes = 0;   
+            esborrarCroquetes();         
+        }*/
+        dibuixarCroquetes();
     }   
 
     function getRandomInt(min, max) {
