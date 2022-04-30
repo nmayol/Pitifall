@@ -58,7 +58,7 @@
         this.load.image('fletxaDreta', 'assets/fletxaDreta.png');
         this.load.image('fletxaEsquerra', 'assets/fletxaEsquerra.png');
 
-        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });              
+        this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 32, frameHeight: 48 });              
     }    
 
     function create ()
@@ -67,7 +67,7 @@
         this.add.image(0, 0, 'fons').setOrigin(0, 0);
         
         //CROQUETA
-        croqueta = this.physics.add.sprite(100, 200, 'dude');
+        croqueta = this.physics.add.sprite(100, 200, 'croqueta');
         croqueta.setCollideWorldBounds(true);
         //croqueta.anims.play('left', true);
 
