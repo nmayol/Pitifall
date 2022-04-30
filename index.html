@@ -225,12 +225,16 @@
     function update () {
         if (estat == 0) {
             croqueta.visible = false;
+            croqueta.enable = false;
         }
         else if (estat == 1) {
             if (vides <= 0) {
                 perdut();
             }
-        }        
+        } else {
+            croqueta.visible = false;
+            croqueta.enable = false;
+        }     
     }
 
     //PANTALLA INICI 
