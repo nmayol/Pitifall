@@ -15,7 +15,7 @@ export default function Home() {
         }
     },
 
-    game = new Phaser.Game(config);
+    game = new Phaser.Game(config),
 
     function preload ()
     {
