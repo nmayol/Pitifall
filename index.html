@@ -27,10 +27,16 @@
     };
     
     var gravetat = 80;
-    var limitEsquerra = 100;
-    var limitDreta = 1340;
-    var limitSuperior = 200;
+    var limitEsquerra = 200;
+    var limitDreta = 1240;
+    var limitSuperior = 300;
     var movLateral = 30;
+
+    //FORMATGES VIDA
+    var ampladaFormatge = 175;
+    var xFormatge = 450;
+    var yFormatge = 210;
+    var f1, f2, f3;
 
     var entrepa;
     var croqueta;
@@ -43,7 +49,6 @@
     var punts;
     var vides;
 
-    var puntsText;
     var fotoPunts;
     var videsText;
     var fotoVides;
@@ -70,10 +75,17 @@
         //FONS
         this.add.image(0, 0, 'fons').setOrigin(0, 0);
         
+        //FORMATGE VIDES
+        f1 = this.add.image(xFormatge+0*ampladaFormatge, yFormatge, 'formatge');
+        f2 = this.add.image(xFormatge+1*ampladaFormatge, yFormatge, 'formatge');
+        f3 = this.add.image(xFormatge+2*ampladaFormatge, yFormatge, 'formatge');
+        f1.setScale(2);
+        f2.setScale(2);
+        f3.setScale(2);
+
         //CROQUETA
         croqueta = this.physics.add.sprite(100, 200, 'croqueta');
-        croqueta.setCollideWorldBounds(true);
-        
+        croqueta.setCollideWorldBounds(true);        
 
         //TERRA (perdre)
         terra = this.physics.add.staticGroup();
@@ -120,8 +132,7 @@
         //videsText = this.add.text(16, 60, 'Vides: 3', { fontSize: '64px', fill: '#000' });
         fotoPunts = this.add.image(180, 60, 'tPunts');
         fotoVides = this.add.image(180, 210, 'tVides');
-        puntsText = this.add.text(320, 15, '0', { fontSize: '128px', fill: '#000' });
-        videsText = this.add.text(320, 160, '3', { fontSize: '128px', fill: '#000' });
+        puntsText = this.add.text(340, 15, '0', { fontSize: '128px', fill: '#000' });
         fotoPunts.setScale(2);
         fotoVides.setScale(2);
 
@@ -158,11 +169,21 @@
         croqueta.x = getRandomInt(limitEsquerra, limitDreta);
     }
 
+    function esborrarVides () {
+        if (vides == 2) {
+            f3.visible = false;
+        } else if (vides == 1) {
+            f2.visible = false;
+        } else if (vides == 0) {
+            f1.visible = false;
+        }
+    }
+
     function terraTocat () {
         spawnCroqueta();
 
         vides -= 1;
-        videsText.setText(vides);
+        esborrarVides();
 
         gravetat += 10;
         croqueta.body.gravity.y = gravetat;
