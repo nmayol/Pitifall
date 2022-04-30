@@ -170,7 +170,11 @@
     }
     //PANTALLA JOC
     function inicialitzar () {
-        //f1.visible = true;
+        /*f1.visible = true;
+        f2.visible = true;
+        f3.visible = true;
+        croqueta.visible = true;
+        terra.visible = true;*/
 
         vides = 3;
         punts = 0; 
@@ -229,6 +233,8 @@
 
         nCroquetes++;
         nCroquetes %= 5;
+        punts += 100;
+        puntsText.setText(punts);
         dibuixarEntrepa();
     }   
 
