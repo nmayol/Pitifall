@@ -21,13 +21,13 @@ export default function Home() {
     {
         this.load.image('fons', 'assets/fons.png');
         this.load.image('formatge', 'assets/formatge.png');
-    }
+    },
 
     function create ()
     {
         this.add.image(400, 300, 'fons');
         this.add.image(400, 300, 'formatge');                
-    }
+    },
 
     function update () {
 
