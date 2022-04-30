@@ -65,6 +65,11 @@
 
     var game = new Phaser.Game(config);
 
+    //pantallaInici
+    var botoPlay;
+
+    //pantallaFi
+
     function preload ()
     {
         this.load.image('fons', 'assets/fons.png');
@@ -81,6 +86,8 @@
         this.load.image('entrepa2', 'assets/entrepa2.png');
         this.load.image('entrepa3', 'assets/entrepa3.png');
         this.load.image('entrepa4', 'assets/entrepa4.png');
+
+        this.load.image('botoPlay', 'assets/botoPlay.png');
 
         this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});              
     }    
@@ -150,8 +157,28 @@
         fotoPunts.setScale(2);
         fotoVides.setScale(2);
 
-        //pantallaInici();
-        inicialitzar();
+        /*f1.visible = false;
+        f2.visible = false;
+        f3.visible = false;
+        croqueta.visible = false;
+        entrepa.visible = false;
+        fletxaDreta.visible = false;
+        fletxaEsquerra.visible = false;
+        fotoPunts.visible = false;
+        fotoVides.visible = false;
+        puntsText.visible = false;*/
+
+        //BOTO INICI
+        //botoInici = this.add.button(720, 1250, 'Begin', inicialitzar, this, 2, 1, 0);
+        botoPlay = this.add.sprite(720, 1250, 'botoPlay').setInteractive();
+        botoPlay.setScale(5);
+        botoPlay.on('pointerdown', function () {            
+            inicialitzar();
+        });
+        //botoPlay.visible = true;
+
+        pantallaInici();
+        //inicialitzar();
         croqueta.anims.play('croqueta', true);
     }
 
@@ -159,22 +186,42 @@
         if (estat == 1) {
             if (vides <= 0) {
                 estat = 2;
-                window.alert("has perdut");
+                //window.alert("has perdut");
+                perdut();
             }
         }        
     }
 
     //PANTALLA INICI 
     function pantallaInici () {
+        f1.visible = false;
+        f2.visible = false;
+        f3.visible = false;
+        croqueta.visible = false;
+        entrepa.visible = false;
+        fletxaDreta.visible = false;
+        fletxaEsquerra.visible = false;
+        fotoPunts.visible = false;
+        fotoVides.visible = false;
+        puntsText.visible = false;
 
+        botoPlay.visible = true;
     }
+
     //PANTALLA JOC
     function inicialitzar () {
-        /*f1.visible = true;
+        f1.visible = true;
         f2.visible = true;
         f3.visible = true;
         croqueta.visible = true;
-        terra.visible = true;*/
+        entrepa.visible = true;
+        fletxaDreta.visible = true;
+        fletxaEsquerra.visible = true;
+        fotoPunts.visible = true;
+        fotoVides.visible = true;
+        puntsText.visible = true;
+
+        botoPlay.visible = false;
 
         vides = 3;
         punts = 0; 
@@ -186,7 +233,17 @@
 
     //PANTALLA HAS PERDUT
     function perdut () {
-
+        f1.visible = false;
+        f2.visible = false;
+        f3.visible = false;
+        croqueta.visible = false;
+        terra.visible = false;
+        entrepa.visible = false;
+        fletxaDreta.visible = false;
+        fletxaEsquerra.visible = false;
+        fotoPunts.visible = false;
+        fotoVides.visible = false;
+        puntsText.visible = false;
     }
 
     function moureDreta () {
@@ -201,6 +258,8 @@
 
     function spawnCroqueta () {
         croqueta.y = limitSuperior;
+        gravetat = getRandomInt(200, 700);
+        croqueta.body.gravity.y = gravetat;
         croqueta.x = getRandomInt(limitEsquerra, limitDreta);
     }
 
@@ -218,10 +277,7 @@
         spawnCroqueta();
 
         vides -= 1;
-        esborrarVides();
-
-        gravetat += 10;
-        croqueta.body.gravity.y = gravetat;
+        esborrarVides();       
     }
 
     function dibuixarEntrepa () {
@@ -231,10 +287,14 @@
     function entrepaTocat () {
         spawnCroqueta();
 
-        nCroquetes++;
-        nCroquetes %= 5;
-        punts += 100;
-        puntsText.setText(punts);
+        nCroquetes++;        
+
+        if (nCroquetes == 5) {
+            nCroquetes = 0;
+            punts += 100;
+            puntsText.setText(punts);
+        }
+        
         dibuixarEntrepa();
     }   
 
