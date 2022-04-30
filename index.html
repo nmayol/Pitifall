@@ -44,7 +44,7 @@
     //PILA CROQUETES
     var nCroquetes;
     const spritesEntrepa = ['entrepa0','entrepa1','entrepa2','entrepa3','entrepa4'];
-    var yEntrepa = 1600;
+    var yEntrepa = 1560;
 
     var entrepa;
     var croqueta;
@@ -118,7 +118,7 @@
         
         //TERRA (perdre)
         terra = this.physics.add.staticGroup();
-        terra.create(750, 2200, 'terra');
+        terra.create(750, 2220, 'terra');
 
         //ENTREPÀ
         entrepa = this.physics.add.sprite(720, yEntrepa, 'entrepa0').setImmovable();
@@ -242,6 +242,7 @@
 
         botoPlay.visible = false;
         botoReiniciar.visible = false;
+        bomba.visible = false;
 
         vides = 3;
         punts = 0; 
@@ -284,18 +285,23 @@
         croqueta.y = limitSuperior;
         gravetat = getRandomInt(200, 700);
         croqueta.body.gravity.y = gravetat;
-        croqueta.x = getRandomInt(limitEsquerra, limitDreta);
+        var aux = getRandomInt(limitEsquerra, limitDreta);
+        croqueta.x = aux;
 
-        if (nCroquetes == timerBomba) spawnBomba();
+        if (nCroquetes == timerBomba) spawnBomba(aux);
     }
 
-    function spawnBomba () {
+    function spawnBomba (xcroqueta) {
         bomba.visible = true;
         //bomba.setTexture('bombaNormal');
         //bomba.setScale(5);
         bomba.y = limitSuperior;
         bomba.body.gravity.y = 300;
-        bomba.x = getRandomInt(limitEsquerra, limitDreta);
+        var aux = getRandomInt(limitEsquerra, limitDreta);
+
+        while (abs(aux-xcroqueta) <= 200) aux = getRandomInt(limitEsquerra, limitDreta);
+
+        bomba.x = aux;
     }
 
     function bombaTerra () {        
@@ -309,6 +315,10 @@
         //bomba.setScale(1);        
         //bomba.anims.play('bombaExplota', true);
         bomba.visible = false;
+        nCroquetes = 0;
+        dibuixarEntrepa();
+        punts = 0;
+        puntsText.setText(punts);
         //perdre pila i punts
     }     
 
@@ -348,7 +358,12 @@
         dibuixarEntrepa();
     }   
 
-    function getRandomInt(min, max) {
+    function abs (n) {
+        if (n < 0) return -1*n;
+        else return n;
+    }
+
+    function getRandomInt (min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
     </script>
