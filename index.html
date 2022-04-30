@@ -44,7 +44,7 @@
     //PILA CROQUETES
     var nCroquetes;
     const spritesEntrepa = ['entrepa0','entrepa1','entrepa2','entrepa3','entrepa4'];
-    var yEntrepa = 1800;
+    var yEntrepa = 1600;
 
     var entrepa;
     var croqueta;
@@ -61,7 +61,7 @@
     var videsText;
     var fotoVides;
 
-    var run = false;
+    var estat = 0; //estat del joc: 0 -> inici, 1 -> run, 2 -> perdre
 
     var game = new Phaser.Game(config);
 
@@ -76,7 +76,11 @@
         this.load.image('tVides', 'assets/textVides.png');
         this.load.image('croquetaQuieta', 'assets/croqueta_quieta.png')
         
-        this.load.image('entrepa0', 'assets/entrepa.png');
+        this.load.image('entrepa0', 'assets/entrepa0.png');
+        this.load.image('entrepa1', 'assets/entrepa1.png');
+        this.load.image('entrepa2', 'assets/entrepa2.png');
+        this.load.image('entrepa3', 'assets/entrepa3.png');
+        this.load.image('entrepa4', 'assets/entrepa4.png');
 
         this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});              
     }    
@@ -99,12 +103,12 @@
         
         //TERRA (perdre)
         terra = this.physics.add.staticGroup();
-        terra.create(720, 2100, 'terra');
+        terra.create(750, 2100, 'terra');
 
         //ENTREPÀ
         entrepa = this.physics.add.sprite(720, yEntrepa, 'entrepa0').setImmovable();
         entrepa.body.setAllowGravity(false); 
-        entrepa.setScale(6);      
+        entrepa.setScale(1.5);      
 
         //FLETXA DRETA
         fletxaDreta = this.add.sprite(1240, 2300, 'fletxaDreta').setInteractive();
@@ -146,15 +150,36 @@
         fotoPunts.setScale(2);
         fotoVides.setScale(2);
 
+        //pantallaInici();
         inicialitzar();
         croqueta.anims.play('croqueta', true);
     }
 
     function update () {
-        if (vides <= 0) {
-            run = false;
-            window.alert("has perdut");
+        if (estat == 1) {
+            if (vides <= 0) {
+                estat = 2;
+                window.alert("has perdut");
+            }
         }        
+    }
+
+    //PANTALLA INICI 
+    function pantallaInici () {
+
+    }
+    //PANTALLA JOC
+    function inicialitzar () {
+        vides = 3;
+        punts = 0; 
+        nCroquetes = 0;
+        spawnCroqueta();
+        run = 1;
+    }
+
+    //PANTALLA HAS PERDUT
+    function perdut () {
+
     }
 
     function moureDreta () {
@@ -165,15 +190,7 @@
     function moureEsquerra () {
         if (entrepa.x >= limitEsquerra)
                 entrepa.x -= movLateral;
-    }
-
-    function inicialitzar () {
-        vides = 3;
-        punts = 0; 
-        nCroquetes = 0;
-        spawnCroqueta();
-        run = true;
-    }
+    }    
 
     function spawnCroqueta () {
         croqueta.y = limitSuperior;
