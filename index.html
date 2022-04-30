@@ -93,11 +93,10 @@
         this.load.image('entrepa4', 'assets/entrepa4.png');
 
         this.load.image('botoPlay', 'assets/botoPlay.png');
-        this.load.image('botoReiniciar', 'assets/botoPlay.png');
+        this.load.image('botoReiniciar', 'assets/botoReiniciar.png');
         this.load.image('botoInstruccions', 'assets/botoInstruccions.png');
 
-        this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});      
-        //this.load.spritesheet('bombaExplota', 'assets/bombaExplota.png', {frameWidth:192, frameHeight:192});        
+        this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});        
     }    
 
     function create ()     {
@@ -152,12 +151,6 @@
             repeat: -1
         });   
         
-        this.anims.create({
-            key: 'bombaExplota',
-            frames: this.anims.generateFrameNumbers('bombaExplota', {start:0, end:6}),
-            frameRate: 10
-        })
-
         //CURSORS
         cursors = this.input.keyboard.createCursorKeys();        
 
@@ -168,8 +161,6 @@
         this.physics.add.collider(bomba, entrepa, bombaEntrepa);
 
         //TEXTS
-        //puntsText = this.add.text(16, 16, 'Punts: 0', { fontSize: '64px', fill: '#000' });
-        //videsText = this.add.text(16, 60, 'Vides: 3', { fontSize: '64px', fill: '#000' });
         fotoPunts = this.add.image(180, 60, 'tPunts');
         fotoVides = this.add.image(180, 210, 'tVides');
         puntsText = this.add.text(340, 15, '0', { fontSize: '128px', fill: '#000' });
@@ -177,13 +168,11 @@
         fotoVides.setScale(2);       
 
         //BOTO INICI
-        //botoInici = this.add.button(720, 1250, 'Begin', inicialitzar, this, 2, 1, 0);
         botoPlay = this.add.sprite(720, 1250, 'botoPlay').setInteractive();
         botoPlay.setScale(5);
         botoPlay.on('pointerdown', function () {            
             inicialitzar();
         });
-        //botoPlay.visible = true;
 
         botoReiniciar = this.add.sprite(720, 1250, 'botoReiniciar').setInteractive();
         botoReiniciar.setScale(5);
@@ -193,7 +182,6 @@
         botoReiniciar.visible = false;
 
         pantallaInici();
-        //inicialitzar();
         croqueta.anims.play('croqueta', true);
     }
 
@@ -201,7 +189,6 @@
         if (estat == 1) {
             if (vides <= 0) {
                 estat = 2;
-                //window.alert("has perdut");
                 perdut();
             }
         }        
@@ -237,8 +224,7 @@
         fletxaEsquerra.visible = true;
         fotoPunts.visible = true;
         fotoVides.visible = true;
-        puntsText.visible = true;        
-        //bomba.visible = true;
+        puntsText.visible = true;
 
         botoPlay.visible = false;
         botoReiniciar.visible = false;
@@ -293,33 +279,25 @@
 
     function spawnBomba (xcroqueta) {
         bomba.visible = true;
-        //bomba.setTexture('bombaNormal');
-        //bomba.setScale(5);
         bomba.y = limitSuperior;
         bomba.body.gravity.y = 300;
         var aux = getRandomInt(limitEsquerra, limitDreta);
 
-        while (abs(aux-xcroqueta) <= 200) aux = getRandomInt(limitEsquerra, limitDreta);
+        while (abs(aux-xcroqueta) <= 500) aux = getRandomInt(limitEsquerra, limitDreta);
 
         bomba.x = aux;
     }
 
-    function bombaTerra () {        
-        //reinicar temporitzador
-        //bomba.setScale(1);
-        //bomba.anims.play('bombaExplota', true);
+    function bombaTerra () {
         bomba.visible = false;
     }
 
     function bombaEntrepa () {
-        //bomba.setScale(1);        
-        //bomba.anims.play('bombaExplota', true);
         bomba.visible = false;
         nCroquetes = 0;
         dibuixarEntrepa();
         punts = 0;
         puntsText.setText(punts);
-        //perdre pila i punts
     }     
 
     function esborrarVides () {
