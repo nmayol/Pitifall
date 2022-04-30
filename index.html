@@ -43,6 +43,10 @@
     var yFormatge = 210;
     var f1, f2, f3;
 
+    var formatge;
+    var countFormatge;
+    var maxFormatge = 5;
+
     //PILA CROQUETES
     var nCroquetes;
     const spritesEntrepa = ['entrepa0','entrepa1','entrepa2','entrepa3','entrepa4'];
@@ -146,6 +150,12 @@
         bomba.setScale(5);
         bomba.body.gravity.y = 300;
 
+        //FORMATGE
+        formatge = this.physics.add.sprite(100, 200, 'formatge');
+        formatge.setScale(2);
+        formatge.setCollideWorldBounds(true);
+        formatge.body.gravity.y = 200;
+
         //ANIMACIONS
         this.anims.create({
             key: 'croqueta',
@@ -162,6 +172,8 @@
         this.physics.add.collider(croqueta, entrepa, entrepaTocat);
         this.physics.add.collider(bomba, terra, bombaTerra);
         this.physics.add.collider(bomba, entrepa, bombaEntrepa);
+        this.physics.add.collider(formatge, terra, formatgeTerra);
+        this.physics.add.collider(formatge, entrepa, formatgeEntrepa);
 
         //TEXTS
         fotoPunts = this.add.image(180, 60, 'tPunts');
@@ -213,6 +225,8 @@
         botoReiniciar.visible = false;
         bomba.visible = false;
         bomba.body.enable = false;
+        //formatge.visible = false;
+        formatge.body.enable = false;
 
         botoPlay.visible = true;
         botoReiniciar.visible = false;
@@ -236,6 +250,7 @@
         bomba.visible = false;
         bomba.body.enable = false;
 
+        countFormatge = maxFormatge;
         vides = 3;
         punts = 0; 
         nCroquetes = 0;
@@ -261,6 +276,8 @@
         puntsText.visible = false;
         bomba.visible = false; 
         bomba.body.enable = false;   
+        //formatge.visible = false;
+        formatge.body.enable = false;
 
         botoReiniciar.visible = true;
     }
@@ -276,13 +293,42 @@
     }    
 
     function spawnCroqueta () {
-        croqueta.y = limitSuperior;
-        gravetat = getRandomInt(minGravetat, maxGravetat);
-        croqueta.body.gravity.y = gravetat;
-        var aux = getRandomInt(limitEsquerra, limitDreta);
-        croqueta.x = aux;
+        
+        --countFormatge;
+        var aux;
 
-        if (nCroquetes == timerBomba) spawnBomba(aux);
+        if (countFormatge <= 0) {
+            croqueta.visible = false;
+            croqueta.body.enable = false;
+
+            //formatge.visible = false;
+            formatge.body.enable = true;
+                    
+            //puntsText.setText("e");
+
+            formatge.y = limitSuperior;
+            gravetat = getRandomInt(minGravetat, maxGravetat);
+            //puntsText.setText("z");
+            formatge.body.gravity.y = gravetat;
+            //puntsText.setText("zz");
+            
+            aux = getRandomInt(limitEsquerra, limitDreta);
+            formatge.x = aux;
+            countFormatge = maxFormatge;
+
+            //puntsText.setText("z");
+        } else {
+            croqueta.visible = true;
+            croqueta.body.enable = true;
+
+            croqueta.y = limitSuperior;
+            gravetat = getRandomInt(minGravetat, maxGravetat);
+            croqueta.body.gravity.y = gravetat;
+            aux = getRandomInt(limitEsquerra, limitDreta);
+            croqueta.x = aux;
+
+            if (nCroquetes == timerBomba) spawnBomba(aux); 
+        }               
     }
 
     function spawnBomba (xcroqueta) {
@@ -318,13 +364,48 @@
         puntsText.setText(punts);        
     }     
 
-    function esborrarVides () {
-        if (vides == 2) {
+    function formatgeTerra () {        
+        //puntsText.setText("y");
+        //formatge.visible = false;
+        formatge.y  = 50; 
+        formatge.body.enable = false;        
+        //formatge.body.gravity.y = 0; 
+
+        //puntsText.setText("o");
+        spawnCroqueta();
+    }
+
+    function formatgeEntrepa () {
+        
+        //formatge.visible = false;  
+        formatge.y = 50;      
+        formatge.body.enable = false;        
+        //formatge.body.gravity.y = 0;
+
+        if (vides < 3) ++vides;
+        dibuixarVides();
+
+        spawnCroqueta();
+    }
+
+    function dibuixarVides () {
+        if (vides == 3) {
+            f1.visible = true;
+            f2.visible = true;
+            f3.visible = true;
+        }
+        else if (vides == 2) {
+            f1.visible = true;
+            f2.visible = true;
             f3.visible = false;
         } else if (vides == 1) {
+            f1.visible = true;
             f2.visible = false;
+            f3.visible = false;
         } else if (vides == 0) {
             f1.visible = false;
+            f2.visible = false;
+            f3.visible = false;
         }
     }
 
@@ -332,7 +413,7 @@
         spawnCroqueta();
 
         vides -= 1;
-        esborrarVides();       
+        dibuixarVides();       
     }
 
     function dibuixarEntrepa () {
