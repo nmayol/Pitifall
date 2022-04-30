@@ -211,7 +211,7 @@
         fotoVides.visible = false;
         puntsText.visible = false;
         botoReiniciar.visible = false;
-        bomba.visible = false;
+        //bomba.visible = false;
 
         botoPlay.visible = true;
         botoReiniciar.visible = false;
@@ -232,7 +232,7 @@
 
         botoPlay.visible = false;
         botoReiniciar.visible = false;
-        bomba.visible = false;
+        //bomba.visible = false;
         bomba.enable = false;
 
         vides = 3;
@@ -258,7 +258,7 @@
         fotoPunts.visible = false;
         fotoVides.visible = false;
         puntsText.visible = false;
-        bomba.visible = false;    
+        //bomba.visible = false;    
 
         botoReiniciar.visible = true;
     }
@@ -285,7 +285,7 @@
 
     function spawnBomba (xcroqueta) {
         bomba.enable = true;
-        bomba.visible = true;
+        //bomba.visible = true;
         bomba.y = limitSuperior;
         
         var aux = getRandomInt(limitEsquerra, limitDreta);
@@ -296,13 +296,13 @@
     }
 
     function bombaTerra () {
-        bomba.visible = false;
+        //bomba.visible = false;
         bomba.y  = 2200;
         bomba.enable = false;        
     }
 
     function bombaEntrepa () {        
-        bomba.visible = false;
+        //bomba.visible = false;
         bomba.y = 2200;
         bomba.enable = false;
         nCroquetes = 0;
