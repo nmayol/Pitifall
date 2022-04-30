@@ -13,7 +13,7 @@ export default function Home() {
             create: create,
             update: update
         }
-    };
+    },
 
     game = new Phaser.Game(config);
 
