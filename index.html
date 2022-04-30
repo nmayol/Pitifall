@@ -188,15 +188,15 @@
         fotoVides.setScale(2);       
 
         //BOTO INICI
-        botoPlay = this.add.sprite(720, 1050, 'botoPlay').setInteractive();
-        botoPlay.setScale(5);
+        botoPlay = this.add.sprite(720, 1000, 'botoPlay').setInteractive();
+        botoPlay.setScale(2.5);
         botoPlay.on('pointerdown', function () {            
             inicialitzar();
         });
         
         //BOTO INSTRUCCIONS
         botoInstruccions = this.add.sprite(720, 1450, 'botoInstruccions').setInteractive();
-        botoInstruccions.setScale(3);
+        botoInstruccions.setScale(5);
         botoInstruccions.on('pointerdown', function () {            
             textInstruccions.visible = true;
             textInstruccions.enable = true;
