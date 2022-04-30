@@ -284,9 +284,10 @@
     }
 
     function spawnBomba (xcroqueta) {
+        bomba.y = limitSuperior;
         bomba.enable = true;
         //bomba.visible = true;
-        bomba.y = limitSuperior;
+       
         
         var aux = getRandomInt(limitEsquerra, limitDreta);
 
