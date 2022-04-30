@@ -75,7 +75,8 @@
     var game = new Phaser.Game(config);
 
     //pantallaInici
-    var botoPlay;
+    var botoPlay, botoInstruccions;
+    var textInstruccions;
 
     //pantallaFi
     var botoReiniciar;
@@ -101,6 +102,8 @@
         this.load.image('botoPlay', 'assets/botoPlay.png');
         this.load.image('botoReiniciar', 'assets/botoReiniciar.png');
         this.load.image('botoInstruccions', 'assets/botoInstruccions.png');
+
+        this.load.image('textInstruccions', 'assets/textInstruccions.png');
 
         this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});        
     }    
@@ -183,10 +186,26 @@
         fotoVides.setScale(2);       
 
         //BOTO INICI
-        botoPlay = this.add.sprite(720, 1250, 'botoPlay').setInteractive();
+        botoPlay = this.add.sprite(720, 1050, 'botoPlay').setInteractive();
         botoPlay.setScale(5);
         botoPlay.on('pointerdown', function () {            
             inicialitzar();
+        });
+        
+        //BOTO INSTRUCCIONS
+        botoInstruccions = this.add.sprite(720, 1450, 'botoInstruccions').setInteractive();
+        botoInstruccions.setScale(3);
+        botoInstruccions.on('pointerdown', function () {            
+            textInstruccions.visible = true;
+            textInstruccions.enable = true;
+        });
+
+        //TEXT INSTRUCCIONS
+        textInstruccions = this.add.sprite(720, 1250, 'textInstruccions').setInteractive();
+        textInstruccions.setScale(0.75);
+        textInstruccions.on('pointerdown', function () {            
+            textInstruccions.visible = false;
+            textInstruccions.enable = false;
         });
 
         //BOTO REINICIAR
@@ -227,8 +246,10 @@
         bomba.body.enable = false;
         formatge.visible = false;
         formatge.body.enable = false;
+        textInstruccions.visible = false;
 
         botoPlay.visible = true;
+        botoInstruccions.visible = true;
         botoReiniciar.visible = false;
     }
 
@@ -245,7 +266,8 @@
         fotoVides.visible = true;
         puntsText.visible = true;
 
-        botoPlay.visible = false;
+        botoPlay.visible = false;        
+        botoInstruccions.visible = false;
         botoReiniciar.visible = false;
         bomba.visible = false;
         bomba.body.enable = false;
