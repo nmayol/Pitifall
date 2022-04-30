@@ -59,8 +59,8 @@
         this.load.image('entrepa', 'assets/entrepa.png');
         this.load.image('fletxaDreta', 'assets/fletxaDreta.png');
         this.load.image('fletxaEsquerra', 'assets/fletxaEsquerra.png');
-        this.load.image('textPunts', 'assets/textPunts');
-        this.load.image('textVides', 'assets/textVides');
+        this.load.image('tPunts', 'assets/textPunts.png');
+        this.load.image('tVides', 'assets/textVides.png');
 
         this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});              
     }    
@@ -112,10 +112,10 @@
         //TEXTS
         //puntsText = this.add.text(16, 16, 'Punts: 0', { fontSize: '64px', fill: '#000' });
         //videsText = this.add.text(16, 60, 'Vides: 3', { fontSize: '64px', fill: '#000' });
-        fotoPunts = this.add.image(16, 16, 'textPunts');
-        fotoVides = this.add.image(16, 60, 'textVides');
-        puntsText = this.add.text(16, 16, '0', { fontSize: '64px', fill: '#000' });
-        videsText = this.add.text(16, 60, '3', { fontSize: '64px', fill: '#000' });
+        fotoPunts = this.add.image(100, 40, 'tPunts');
+        fotoVides = this.add.image(100, 120, 'tVides');
+        puntsText = this.add.text(190, 20, '0', { fontSize: '64px', fill: '#000' });
+        videsText = this.add.text(190, 90, '3', { fontSize: '64px', fill: '#000' });
 
         inicialitzar();
         croqueta.anims.play('croqueta', true);
