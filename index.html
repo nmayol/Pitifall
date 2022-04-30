@@ -225,7 +225,7 @@
         botoReiniciar.visible = false;
         bomba.visible = false;
         bomba.body.enable = false;
-        //formatge.visible = false;
+        formatge.visible = false;
         formatge.body.enable = false;
 
         botoPlay.visible = true;
@@ -276,7 +276,7 @@
         puntsText.visible = false;
         bomba.visible = false; 
         bomba.body.enable = false;   
-        //formatge.visible = false;
+        formatge.visible = false;
         formatge.body.enable = false;
 
         botoReiniciar.visible = true;
@@ -301,16 +301,16 @@
             croqueta.visible = false;
             croqueta.body.enable = false;
 
-            //formatge.visible = false;
+            formatge.visible = false;
             formatge.body.enable = true;
                     
-            //puntsText.setText("e");
+            
 
             formatge.y = limitSuperior;
             gravetat = getRandomInt(minGravetat, maxGravetat);
-            //puntsText.setText("z");
+            
             formatge.body.gravity.y = gravetat;
-            //puntsText.setText("zz");
+            
             
             aux = getRandomInt(limitEsquerra, limitDreta);
             formatge.x = aux;
@@ -364,23 +364,20 @@
         puntsText.setText(punts);        
     }     
 
-    function formatgeTerra () {        
-        //puntsText.setText("y");
-        //formatge.visible = false;
+    function formatgeTerra () { 
+        formatge.visible = false;
         formatge.y  = 50; 
-        formatge.body.enable = false;        
-        //formatge.body.gravity.y = 0; 
-
-        //puntsText.setText("o");
+        formatge.body.enable = false;  
+        
         spawnCroqueta();
     }
 
     function formatgeEntrepa () {
         
-        //formatge.visible = false;  
+        formatge.visible = false;  
         formatge.y = 50;      
-        formatge.body.enable = false;        
-        //formatge.body.gravity.y = 0;
+        formatge.body.enable = false;       
+        
 
         if (vides < 3) ++vides;
         dibuixarVides();
