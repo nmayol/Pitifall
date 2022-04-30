@@ -144,6 +144,7 @@
         bomba = this.physics.add.sprite(100, 200, 'bombaNormal');
         bomba.setCollideWorldBounds(true);
         bomba.setScale(5);
+        bomba.body.gravity.y = 300;
 
         //ANIMACIONS
         this.anims.create({
@@ -282,9 +283,10 @@
     }
 
     function spawnBomba (xcroqueta) {
+        bomba.enable = true;
         bomba.visible = true;
         bomba.y = limitSuperior;
-        bomba.body.gravity.y = 300;
+        
         var aux = getRandomInt(limitEsquerra, limitDreta);
 
         while (abs(aux-xcroqueta) <= 500) aux = getRandomInt(limitEsquerra, limitDreta);
@@ -294,16 +296,18 @@
 
     function bombaTerra () {
         bomba.visible = false;
-        bomba.body.gravity.y = 0;
+        bomba.enable = false;
+        bomba.y -= 500;
     }
 
     function bombaEntrepa () {
         bomba.visible = false;
-        bomba.body.gravity.y = 0;
+        bomba.enable = false;
         nCroquetes = 0;
         dibuixarEntrepa();
         punts = 0;
         puntsText.setText(punts);
+        bomba.y -= 500;
     }     
 
     function esborrarVides () {
