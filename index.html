@@ -51,6 +51,9 @@
     var terra;
     var fletxaDreta;
     var fletxaEsquerra;
+    var bomba;
+
+    var timerBomba; //a quina croqueta surt la bomba
     
     var cursors;
 
@@ -80,7 +83,8 @@
         this.load.image('fletxaEsquerra', 'assets/fletxaEsquerra.png');
         this.load.image('tPunts', 'assets/textPunts.png');
         this.load.image('tVides', 'assets/textVides.png');
-        this.load.image('croquetaQuieta', 'assets/croqueta_quieta.png')
+        this.load.image('croquetaQuieta', 'assets/croqueta_quieta.png');
+        this.load.image('bombaNormal', 'assets/bombaNormal.png');
         
         this.load.image('entrepa0', 'assets/entrepa0.png');
         this.load.image('entrepa1', 'assets/entrepa1.png');
@@ -92,7 +96,8 @@
         this.load.image('botoReiniciar', 'assets/botoPlay.png');
         this.load.image('botoInstruccions', 'assets/botoInstruccions.png');
 
-        this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});              
+        this.load.spritesheet('croqueta', 'assets/croqueta.png', { frameWidth: 120, frameHeight: 120});      
+        //this.load.spritesheet('bombaExplota', 'assets/bombaExplota.png', {frameWidth:192, frameHeight:192});        
     }    
 
     function create ()     {
@@ -125,7 +130,6 @@
         fletxaDreta.on('pointerdown', function () {            
             moureDreta();
         });
-
         fletxaDreta.setScale(3);
 
         //FLETXA ESQUERRA
@@ -133,8 +137,12 @@
         fletxaEsquerra.on('pointerdown', function () {            
             moureEsquerra();
         });
-
         fletxaEsquerra.setScale(3);
+
+        //BOMBA
+        bomba = this.physics.add.sprite(100, 200, 'bombaNormal');
+        bomba.setCollideWorldBounds(true);
+        bomba.setScale(5);
 
         //ANIMACIONS
         this.anims.create({
@@ -142,7 +150,13 @@
             frames: this.anims.generateFrameNumbers('croqueta', { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
-        });        
+        });   
+        
+        this.anims.create({
+            key: 'bombaExplota',
+            frames: this.anims.generateFrameNumbers('bombaExplota', {start:0, end:6}),
+            frameRate: 10
+        })
 
         //CURSORS
         cursors = this.input.keyboard.createCursorKeys();        
@@ -150,6 +164,8 @@
         //COLLIDERS
         this.physics.add.collider(croqueta, terra, terraTocat);
         this.physics.add.collider(croqueta, entrepa, entrepaTocat);
+        this.physics.add.collider(bomba, terra, bombaTerra);
+        this.physics.add.collider(bomba, entrepa, bombaEntrepa);
 
         //TEXTS
         //puntsText = this.add.text(16, 16, 'Punts: 0', { fontSize: '64px', fill: '#000' });
@@ -158,18 +174,7 @@
         fotoVides = this.add.image(180, 210, 'tVides');
         puntsText = this.add.text(340, 15, '0', { fontSize: '128px', fill: '#000' });
         fotoPunts.setScale(2);
-        fotoVides.setScale(2);
-
-        /*f1.visible = false;
-        f2.visible = false;
-        f3.visible = false;
-        croqueta.visible = false;
-        entrepa.visible = false;
-        fletxaDreta.visible = false;
-        fletxaEsquerra.visible = false;
-        fotoPunts.visible = false;
-        fotoVides.visible = false;
-        puntsText.visible = false;*/
+        fotoVides.setScale(2);       
 
         //BOTO INICI
         //botoInici = this.add.button(720, 1250, 'Begin', inicialitzar, this, 2, 1, 0);
@@ -215,8 +220,10 @@
         fotoVides.visible = false;
         puntsText.visible = false;
         botoReiniciar.visible = false;
+        bomba.visible = false;
 
         botoPlay.visible = true;
+        botoReiniciar.visible = false;
     }
 
     //PANTALLA JOC
@@ -230,14 +237,16 @@
         fletxaEsquerra.visible = true;
         fotoPunts.visible = true;
         fotoVides.visible = true;
-        puntsText.visible = true;
-        botoReiniciar.visible = false;
+        puntsText.visible = true;        
+        //bomba.visible = true;
 
         botoPlay.visible = false;
+        botoReiniciar.visible = false;
 
         vides = 3;
         punts = 0; 
         nCroquetes = 0;
+        timerBomba = getRandomInt(0, 4);
         spawnCroqueta();
         
         estat = 1;
@@ -256,6 +265,7 @@
         fotoPunts.visible = false;
         fotoVides.visible = false;
         puntsText.visible = false;
+        bomba.visible = false;
 
         botoReiniciar.visible = true;
     }
@@ -275,7 +285,32 @@
         gravetat = getRandomInt(200, 700);
         croqueta.body.gravity.y = gravetat;
         croqueta.x = getRandomInt(limitEsquerra, limitDreta);
+
+        if (nCroquetes == timerBomba) spawnBomba();
     }
+
+    function spawnBomba () {
+        bomba.visible = true;
+        //bomba.setTexture('bombaNormal');
+        //bomba.setScale(5);
+        bomba.y = limitSuperior;
+        bomba.body.gravity.y = 300;
+        bomba.x = getRandomInt(limitEsquerra, limitDreta);
+    }
+
+    function bombaTerra () {        
+        //reinicar temporitzador
+        //bomba.setScale(1);
+        //bomba.anims.play('bombaExplota', true);
+        bomba.visible = false;
+    }
+
+    function bombaEntrepa () {
+        //bomba.setScale(1);        
+        //bomba.anims.play('bombaExplota', true);
+        bomba.visible = false;
+        //perdre pila i punts
+    }     
 
     function esborrarVides () {
         if (vides == 2) {
@@ -304,6 +339,7 @@
         nCroquetes++;        
 
         if (nCroquetes == 5) {
+            timerbomba = getRandomInt(0, 4);
             nCroquetes = 0;
             punts += 100;
             puntsText.setText(punts);
