@@ -233,7 +233,7 @@
         botoPlay.visible = false;
         botoReiniciar.visible = false;
         //bomba.visible = false;
-        bomba.enable = false;
+        bomba.body.enable = false;
 
         vides = 3;
         punts = 0; 
@@ -285,7 +285,7 @@
 
     function spawnBomba (xcroqueta) {
         bomba.y = limitSuperior;
-        bomba.enable = true;
+        bomba.body.enable = true;
         //bomba.visible = true;
         bomba.body.gravity.y = 300;
        
@@ -299,17 +299,17 @@
 
     function bombaTerra () {
         //bomba.visible = false;
-        bomba.enable = false;
+        bomba.body.enable = false;
         bomba.y  = 50; 
         bomba.body.gravity.y = 0;               
     }
 
     function bombaEntrepa () {        
         //bomba.visible = false;        
-        bomba.enable = false;
+        bomba.body.enable = false;
         bomba.y = 50;
         bomba.body.gravity.y = 0;
-        
+
         nCroquetes = 0;
         dibuixarEntrepa();
         punts = 0;
