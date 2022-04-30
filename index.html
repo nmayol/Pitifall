@@ -109,6 +109,8 @@
     }    
 
     function create ()     {
+        estat = 0;
+
         //FONS
         this.add.image(0, 0, 'fons').setOrigin(0, 0);
         
@@ -226,7 +228,6 @@
         }
         else if (estat == 1) {
             if (vides <= 0) {
-                estat = 2;
                 perdut();
             }
         }        
@@ -305,6 +306,8 @@
         formatge.body.enable = false;
 
         botoReiniciar.visible = true;
+
+        estat = 2;
     }
 
     function moureDreta () {
