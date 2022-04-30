@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+</head>
+<body>
+
+    <script type="text/javascript">
+    var config = {
+        type: Phaser.AUTO,
+        width: 480,
+        height: 850,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: {y: 80},
+                debut: false
+            }
+        },
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+    
+    var gravetat = 80;
+    var limitEsquerra = 30;
+    var limitDreta = 450;
+    var movLateral = 20;
+
+    var entrepa;
+    var croqueta;
+    var terra;
+    var fletxaDreta;
+    var fletxaEsquerra;
+    
+    var cursors;
+
+    var punts;
+    var vides;
+
+    var puntsText;
+    var videsText;
+
+    var run = false;
+
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+        this.load.image('fons', 'assets/fons.png');
+        this.load.image('formatge', 'assets/formatge.png');
+        this.load.image('terra', 'assets/terra.png');
+        this.load.image('entrepa', 'assets/entrepa.png');
+        this.load.image('fletxaDreta', 'assets/fletxaDreta.png');
+        this.load.image('fletxaEsquerra', 'assets/fletxaEsquerra.png');
+
+        this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });              
+    }    
+
+    function create ()
+    {
+        //FONS
+        this.add.image(0, 0, 'fons').setOrigin(0, 0);
+        
+        //CROQUETA
+        croqueta = this.physics.add.sprite(100, 200, 'dude');
+        croqueta.setCollideWorldBounds(true);
+        //croqueta.anims.play('left', true);
+
+        //TERRA (perdre)
+        terra = this.physics.add.staticGroup();
+        terra.create(240, 750, 'terra');
+
+        //ENTREPÀ
+        entrepa = this.physics.add.sprite(240, 600, 'entrepa').setImmovable();
+        entrepa.body.setAllowGravity(false);       
+
+        //FLETXA DRETA
+        fletxaDreta = this.add.sprite(450, 700, 'fletxaDreta').setInteractive();
+        fletxaDreta.on('pointerdown', function () {            
+            moureDreta();
+        });
+
+        //FLETXA ESQUERRA
+        fletxaEsquerra = this.add.sprite(30, 700, 'fletxaEsquerra').setInteractive();
+        fletxaEsquerra.on('pointerdown', function () {            
+            moureEsquerra();
+        });
+
+        //ANIMACIONS
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });        
+
+        //CURSORS
+        cursors = this.input.keyboard.createCursorKeys();        
+
+        //COLLIDERS
+        this.physics.add.collider(croqueta, terra, terraTocat);
+        this.physics.add.collider(croqueta, entrepa, entrepaTocat);
+
+        //TEXTS
+        puntsText = this.add.text(16, 16, 'Punts: 0', { fontSize: '32px', fill: '#000' });
+        videsText = this.add.text(16, 60, 'Vides: 3', { fontSize: '32px', fill: '#000' });
+
+        inicialitzar();
+    }
+
+    function update () {
+        if (vides < 0) {
+            run = false;
+            window.alert("has perdut");
+        }        
+    }
+
+    function moureDreta () {
+        if (entrepa.x <= limitDreta)
+                entrepa.x += movLateral;
+    }
+    
+    function moureEsquerra () {
+        if (entrepa.x >= limitEsquerra)
+                entrepa.x -= movLateral;
+    }
+
+    function inicialitzar () {
+        vides = 3;
+        punts = 0; 
+        spawnCroqueta();
+        run = true;
+    }
+
+    function spawnCroqueta () {
+        croqueta.y = 50;
+        croqueta.x = getRandomInt(limitEsquerra, limitDreta);
+    }
+
+    function terraTocat () {
+        spawnCroqueta();
+
+        vides -= 1;
+        videsText.setText('Vides: ' + vides);
+
+        gravetat += 10;
+        croqueta.body.gravity.y = gravetat;
+    }
+
+    function entrepaTocat () {
+        spawnCroqueta();
+
+        punts += 10;
+        puntsText.setText('Punts: ' + punts);
+    }   
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    </script>
+
+</body>
+</html>
