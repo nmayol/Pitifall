@@ -30,10 +30,12 @@
     };
     
     var gravetat = 80;
+    var minGravetat = 100;
+    var maxGravetat = 300;
     var limitEsquerra = 200;
     var limitDreta = 1240;
     var limitSuperior = 300;
-    var movLateral = 30;
+    var movLateral = 40;
 
     //FORMATGES VIDA
     var ampladaFormatge = 175;
@@ -174,8 +176,9 @@
             inicialitzar();
         });
 
+        //BOTO REINICIAR
         botoReiniciar = this.add.sprite(720, 1250, 'botoReiniciar').setInteractive();
-        botoReiniciar.setScale(5);
+        botoReiniciar.setScale(10);
         botoReiniciar.on('pointerdown', function () {
             pantallaInici();
         });
@@ -235,6 +238,7 @@
         nCroquetes = 0;
         timerBomba = getRandomInt(0, 4);
         spawnCroqueta();
+        dibuixarEntrepa();
         
         estat = 1;
     }
@@ -252,7 +256,7 @@
         fotoPunts.visible = false;
         fotoVides.visible = false;
         puntsText.visible = false;
-        bomba.visible = false;
+        bomba.visible = false;    
 
         botoReiniciar.visible = true;
     }
@@ -269,7 +273,7 @@
 
     function spawnCroqueta () {
         croqueta.y = limitSuperior;
-        gravetat = getRandomInt(200, 700);
+        gravetat = getRandomInt(minGravetat, maxGravetat);
         croqueta.body.gravity.y = gravetat;
         var aux = getRandomInt(limitEsquerra, limitDreta);
         croqueta.x = aux;
@@ -323,6 +327,9 @@
 
     function entrepaTocat () {
         spawnCroqueta();
+
+        minGravetat += 20;
+        maxGravetat += 20;
 
         nCroquetes++;        
 
