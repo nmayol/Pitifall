@@ -16,7 +16,8 @@ export default function Home() {
           Get started by aaaaaa <code>pages/index.js</code>
         </p>
         <body>
-          <a href="#" onclick="window.open('file:///D:/Examples/file2.html'); return false">CLICK ME</a>
+          <a href="#" onclick="window.open('C:/Users/mayol/Desktop/Hackupc2022/Pitifall/Pitifall/pages/index.html'); return false">CLICK ME</a>
+          
         </body>
       </main>
 
