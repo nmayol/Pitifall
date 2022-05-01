@@ -274,6 +274,8 @@
         bomba.body.enable = false;
 
         countFormatge = maxFormatge;
+        minGravetat = 100;
+        maxGravetat = 300;
         modeMenjar = 0;
         vides = 3;
         punts = 0; 
@@ -446,6 +448,9 @@
                 nCroquetes = 0;
                 punts += 100;
                 puntsText.setText(punts);
+
+                let mySound = new Audio('assets/sons/pitiflis.mp3');
+                mySound.play();
             }
             
             dibuixarEntrepa();
