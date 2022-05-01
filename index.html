@@ -141,12 +141,7 @@
         //FLETXA DRETA
         fletxaDreta = this.add.sprite(1240, 2300, 'fletxaDreta').setInteractive();
         fletxaDreta.on('pointerdown', function () {            
-            //moureDreta();
-            dretaPressed = 1;
-        });
-        fletxaDreta.on('pointerup', function () {            
-            //moureDreta();
-            dretaPressed = 0;
+            moureDreta();
         });
         fletxaDreta.setScale(3);
 
@@ -232,7 +227,6 @@
             if (vides <= 0) {
                 perdut();
             }
-            if (dretaPressed == 1) moureDreta();
         } else {
             croqueta.visible = false;
             croqueta.enable = false;
