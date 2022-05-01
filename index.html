@@ -26,8 +26,6 @@
     <script type="text/javascript">
     var config = {
         type: Phaser.AUTO,
-        //width: 480,
-        //height: 850,
         width: 1440,
         height: 2500,
         physics: {
@@ -91,8 +89,6 @@
 
     var estat = 0; //estat del joc: 0 -> inici, 1 -> run, 2 -> perdre
 
-    var game = new Phaser.Game(config);
-
     //pantallaInici
     var botoPlay, botoInstruccions;
     var textInstruccions;
@@ -100,8 +96,9 @@
     //pantallaFi
     var botoReiniciar;
 
-    function preload ()
-    {
+    var game = new Phaser.Game(config);    
+
+    function preload () {
         this.load.image('fons', 'assets/fons.png');
         this.load.image('formatge', 'assets/formatge.png');
         this.load.image('terra', 'assets/taula.png');
@@ -155,8 +152,7 @@
 
         //FLETXA DRETA
         fletxaDreta = this.add.sprite(1240, 2300, 'fletxaDreta').setInteractive();
-        fletxaDreta.on('pointerdown', function () {            
-            //moureDreta();
+        fletxaDreta.on('pointerdown', function () {
             dretaPressed = 1;
         });
         fletxaDreta.on('pointerup', function () {
@@ -166,8 +162,7 @@
 
         //FLETXA ESQUERRA
         fletxaEsquerra = this.add.sprite(200, 2300, 'fletxaEsquerra').setInteractive();
-        fletxaEsquerra.on('pointerdown', function () {            
-            //moureEsquerra();
+        fletxaEsquerra.on('pointerdown', function () {
             esquerraPressed = 1;
         });
         fletxaEsquerra.on('pointerup', function () {
@@ -240,12 +235,8 @@
         menjar.anims.play('croqueta', true);
     }
 
-    function update () {
-        if (estat == 0) {
-            //menjar.visible = false;
-            //menjar.enable = false;
-        }
-        else if (estat == 1) {
+    function update () {        
+        if (estat == 1) {
             if (dretaPressed) moureDreta();
             if (esquerraPressed) moureEsquerra();
 
@@ -354,8 +345,7 @@
             modeMenjar = 1;
         } else modeMenjar = 0;
 
-        if (modeMenjar == 1) {           
-            
+        if (modeMenjar == 1) { 
             menjar.anims.stop();
             menjar.setTexture('formatge');
             menjar.setScale(2);
@@ -381,8 +371,7 @@
         if (estat == 1) {
                 let mySound = new Audio('assets/sons/croqueta.mp3');
                 mySound.play();
-        }
-        
+        }        
     }
 
     function spawnBomba (xcroqueta) {
