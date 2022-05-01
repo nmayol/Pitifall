@@ -35,7 +35,7 @@
     var limitEsquerra = 200;
     var limitDreta = 1240;
     var limitSuperior = 300;
-    var movLateral = 20;
+    var movLateral = 40;
 
     //FORMATGES VIDA
     var ampladaFormatge = 175;
@@ -153,11 +153,7 @@
         //FLETXA ESQUERRA
         fletxaEsquerra = this.add.sprite(200, 2300, 'fletxaEsquerra').setInteractive();
         fletxaEsquerra.on('pointerdown', function () {            
-            //moureEsquerra();
-            esquerraPressed = 1;
-        });
-        fletxaDreta.on('pointerup', function () {           
-            esquerraPressed = 0;
+            moureEsquerra();
         });
         fletxaEsquerra.setScale(3);
 
