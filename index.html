@@ -366,8 +366,10 @@
 
             if (nCroquetes == timerBomba) spawnBomba(aux); 
 
-            let mySound = new Audio('croqueta.mp3')
-            mySound.play()
+            if (estat == 1) {
+                let mySound = new Audio('croqueta.mp3')
+                mySound.play()
+            }
         }               
     }
 
@@ -377,8 +379,10 @@
         bomba.visible = true;
         bomba.body.gravity.y = 300;
        
-        let mySound = new Audio('bomba.mp3');
-        mySound.play();
+        if (estat == 1) {
+            let mySound = new Audio('bomba.mp3');
+            mySound.play();
+        }
         var aux = getRandomInt(limitEsquerra, limitDreta);
 
         while (abs(aux-xcroqueta) <= 500) aux = getRandomInt(limitEsquerra, limitDreta);
@@ -422,9 +426,10 @@
 
         if (vides < 3)  {
             ++vides;
-
-            let mySound = new Audio('formatge.mp3');
-            mySound.play();
+            if (estat == 1) {
+                let mySound = new Audio('formatge.mp3');
+                mySound.play();
+            }
         }
         dibuixarVides();
 
