@@ -35,7 +35,7 @@
     var limitEsquerra = 200;
     var limitDreta = 1240;
     var limitSuperior = 300;
-    var movLateral = 40;
+    var movLateral = 20;
 
     //FORMATGES VIDA
     var ampladaFormatge = 175;
@@ -64,6 +64,8 @@
     var timerBomba = -1; //a quina croqueta surt la bomba
     
     var cursors;
+    var dretaPressed = 0;
+    var esquerraPressed = 0;
 
     var punts;
     var vides;
@@ -139,14 +141,22 @@
         //FLETXA DRETA
         fletxaDreta = this.add.sprite(1240, 2300, 'fletxaDreta').setInteractive();
         fletxaDreta.on('pointerdown', function () {            
-            moureDreta();
+            //moureDreta();
+            dretaPressed = 1;
+        });
+        fletxaDreta.on('pointerup', function () {
+            dretaPressed = 0;
         });
         fletxaDreta.setScale(3);
 
         //FLETXA ESQUERRA
         fletxaEsquerra = this.add.sprite(200, 2300, 'fletxaEsquerra').setInteractive();
         fletxaEsquerra.on('pointerdown', function () {            
-            moureEsquerra();
+            //moureEsquerra();
+            esquerraPressed = 1;
+        });
+        fletxaEsquerra.on('pointerup', function () {
+            esquerraPressed = 0;
         });
         fletxaEsquerra.setScale(3);
 
@@ -222,6 +232,9 @@
             menjar.enable = false;
         }
         else if (estat == 1) {
+            if (dretaPressed) moureDreta();
+            if (esquerraPressed) moureEsquerra();
+
             if (vides <= 0) {
                 perdut();
             }
