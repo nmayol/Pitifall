@@ -287,8 +287,8 @@
         spawnCroqueta();
         dibuixarEntrepa();
         
-        let mySound = new Audio('inici.mp3')
-        mySound.play()
+        let mySound = new Audio('assets/sons/inici.mp3');
+        mySound.play();
         estat = 1;
     }
 
@@ -312,8 +312,8 @@
 
         botoReiniciar.visible = true;
 
-        let mySound = new Audio('final.mp3')
-        mySound.play()
+        let mySound = new Audio('assets/sons/final.mp3');
+        mySound.play();
 
         estat = 2;
     }
@@ -367,8 +367,8 @@
             if (nCroquetes == timerBomba) spawnBomba(aux); 
 
             if (estat == 1) {
-                let mySound = new Audio('croqueta.mp3')
-                mySound.play()
+                let mySound = new Audio('assets/sons/croqueta.mp3');
+                mySound.play();
             }
         }               
     }
@@ -380,7 +380,7 @@
         bomba.body.gravity.y = 300;
        
         if (estat == 1) {
-            let mySound = new Audio('bomba.mp3');
+            let mySound = new Audio('assets/sons/bomba.mp3');
             mySound.play();
         }
         var aux = getRandomInt(limitEsquerra, limitDreta);
@@ -427,7 +427,7 @@
         if (vides < 3)  {
             ++vides;
             if (estat == 1) {
-                let mySound = new Audio('formatge.mp3');
+                let mySound = new Audio('assets/sons/formatge.mp3');
                 mySound.play();
             }
         }
