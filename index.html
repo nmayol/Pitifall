@@ -43,7 +43,6 @@
     var yFormatge = 210;
     var f1, f2, f3;
 
-    var formatge;
     var countFormatge;
     var maxFormatge = 20;
 
@@ -51,6 +50,9 @@
     var nCroquetes;
     const spritesEntrepa = ['entrepa0','entrepa1','entrepa2','entrepa3','entrepa4'];
     var yEntrepa = 1560;
+
+    var menjar;
+    var modeMenjar = 0; //0 -> croqueta, 1 -> formatge
 
     var entrepa;
     var croqueta;
@@ -90,8 +92,8 @@
         this.load.image('fletxaEsquerra', 'assets/fletxaEsquerra.png');
         this.load.image('tPunts', 'assets/textPunts.png');
         this.load.image('tVides', 'assets/textVides.png');
-        this.load.image('croquetaQuieta', 'assets/croqueta_quieta.png');
         this.load.image('bombaNormal', 'assets/bombaNormal.png');
+        this.load.image('pa', 'assets/pa.png');
         
         this.load.image('entrepa0', 'assets/entrepa0.png');
         this.load.image('entrepa1', 'assets/entrepa1.png');
@@ -122,8 +124,8 @@
         f3.setScale(2);
 
         //CROQUETA
-        croqueta = this.physics.add.sprite(100, 200, 'croqueta');
-        croqueta.setCollideWorldBounds(true); 
+        menjar = this.physics.add.sprite(100, 200, 'croqueta');
+        menjar.setCollideWorldBounds(true); 
         
         //TERRA (perdre)
         terra = this.physics.add.staticGroup();
@@ -154,12 +156,6 @@
         bomba.setScale(5);
         bomba.body.gravity.y = 300;
 
-        //FORMATGE
-        formatge = this.physics.add.sprite(100, 200, 'formatge');
-        formatge.setScale(2);
-        formatge.setCollideWorldBounds(true);
-        formatge.body.gravity.y = 200;
-
         //ANIMACIONS
         this.anims.create({
             key: 'croqueta',
@@ -172,12 +168,10 @@
         cursors = this.input.keyboard.createCursorKeys();        
 
         //COLLIDERS
-        this.physics.add.collider(croqueta, terra, terraTocat);
-        this.physics.add.collider(croqueta, entrepa, entrepaTocat);
+        this.physics.add.collider(menjar, terra, terraTocat);
+        this.physics.add.collider(menjar, entrepa, entrepaTocat);
         this.physics.add.collider(bomba, terra, bombaTerra);
         this.physics.add.collider(bomba, entrepa, bombaEntrepa);
-        this.physics.add.collider(formatge, terra, formatgeTerra);
-        this.physics.add.collider(formatge, entrepa, formatgeEntrepa);
 
         //TEXTS
         fotoPunts = this.add.image(180, 60, 'tPunts');
@@ -218,13 +212,14 @@
         botoReiniciar.visible = false;
 
         pantallaInici();
-        croqueta.anims.play('croqueta', true);
+        menjar.anims.play('croqueta', true);
     }
 
     function update () {
+        //puntsText.setText(modeMenjar);
         if (estat == 0) {
-            croqueta.visible = false;
-            croqueta.enable = false;
+            menjar.visible = false;
+            menjar.enable = false;
         }
         else if (estat == 1) {
             if (vides <= 0) {
@@ -241,7 +236,6 @@
         f1.visible = false;
         f2.visible = false;
         f3.visible = false;
-        croqueta.visible = false;
         entrepa.visible = false;
         fletxaDreta.visible = false;
         fletxaEsquerra.visible = false;
@@ -251,9 +245,8 @@
         botoReiniciar.visible = false;
         bomba.visible = false;
         bomba.body.enable = false;
-        formatge.visible = false;
-        formatge.body.enable = false;
         textInstruccions.visible = false;
+        menjar.visible = false;
 
         botoPlay.visible = true;
         botoInstruccions.visible = true;
@@ -265,13 +258,14 @@
         f1.visible = true;
         f2.visible = true;
         f3.visible = true;
-        croqueta.visible = true;
+        //croqueta.visible = true;
         entrepa.visible = true;
         fletxaDreta.visible = true;
         fletxaEsquerra.visible = true;
         fotoPunts.visible = true;
         fotoVides.visible = true;
         puntsText.visible = true;
+        menjar.visible = true;
 
         botoPlay.visible = false;        
         botoInstruccions.visible = false;
@@ -280,6 +274,7 @@
         bomba.body.enable = false;
 
         countFormatge = maxFormatge;
+        modeMenjar = 0;
         vides = 3;
         punts = 0; 
         nCroquetes = 0;
@@ -297,7 +292,7 @@
         f1.visible = false;
         f2.visible = false;
         f3.visible = false;
-        croqueta.visible = false;
+        //croqueta.visible = false;
         terra.visible = false;
         entrepa.visible = false;
         fletxaDreta.visible = false;
@@ -306,9 +301,8 @@
         fotoVides.visible = false;
         puntsText.visible = false;
         bomba.visible = false; 
-        bomba.body.enable = false;   
-        formatge.visible = false;
-        formatge.body.enable = false;
+        bomba.body.enable = false; 
+        menjar.visible = false;
 
         botoReiniciar.visible = true;
 
@@ -329,48 +323,43 @@
     }    
 
     function spawnCroqueta () {
-        
-        --countFormatge;
         var aux;
 
+        --countFormatge;
         if (countFormatge <= 0) {
-            croqueta.visible = false;
-            croqueta.body.enable = false;
-
-            formatge.visible = true;
-            formatge.body.enable = true;
-                    
-            
-
-            formatge.y = limitSuperior;
-            gravetat = getRandomInt(minGravetat, maxGravetat);
-            
-            formatge.body.gravity.y = gravetat;
-            
-            
-            aux = getRandomInt(limitEsquerra, limitDreta);
-            formatge.x = aux;
             countFormatge = maxFormatge;
+            modeMenjar = 1;
+        } else modeMenjar = 0;
+
+        if (modeMenjar == 1) {           
             
+            menjar.anims.stop();
+            menjar.setTexture('formatge');
+            menjar.setScale(2);
+        } else if (modeMenjar == 0){ 
+            if (nCroquetes == 3) {
+                menjar.anims.stop();
+                menjar.setTexture('pa');
+                menjar.setScale(2);
+            } else {
+                menjar.setTexture('croqueta');
+                menjar.setScale(1);
+                menjar.anims.play('croqueta', true);
+            }           
+        } 
+        menjar.y = limitSuperior;
+        gravetat = getRandomInt(minGravetat, maxGravetat);
+        menjar.body.gravity.y = gravetat;
+        aux = getRandomInt(limitEsquerra, limitDreta);
+        menjar.x = aux;
+        
+        if (nCroquetes == timerBomba) spawnBomba(aux);
 
-            //puntsText.setText("z");
-        } else {
-            croqueta.visible = true;
-            croqueta.body.enable = true;
-
-            croqueta.y = limitSuperior;
-            gravetat = getRandomInt(minGravetat, maxGravetat);
-            croqueta.body.gravity.y = gravetat;
-            aux = getRandomInt(limitEsquerra, limitDreta);
-            croqueta.x = aux;
-
-            if (nCroquetes == timerBomba) spawnBomba(aux); 
-
-            if (estat == 1) {
+        if (estat == 1) {
                 let mySound = new Audio('assets/sons/croqueta.mp3');
                 mySound.play();
-            }
-        }               
+        }
+        
     }
 
     function spawnBomba (xcroqueta) {
@@ -407,34 +396,7 @@
         dibuixarEntrepa();
         punts = 0;
         puntsText.setText(punts);        
-    }     
-
-    function formatgeTerra () { 
-        formatge.visible = false;
-        formatge.y  = 50; 
-        formatge.body.enable = false;  
-        
-        spawnCroqueta();
-    }
-
-    function formatgeEntrepa () {
-        
-        formatge.visible = false;  
-        formatge.y = 50;      
-        formatge.body.enable = false;       
-        
-
-        if (vides < 3)  {
-            ++vides;
-            if (estat == 1) {
-                let mySound = new Audio('assets/sons/formatge.mp3');
-                mySound.play();
-            }
-        }
-        dibuixarVides();
-
-        spawnCroqueta();
-    }
+    }    
 
     function dibuixarVides () {
         if (vides == 3) {
@@ -457,33 +419,48 @@
         }
     }
 
-    function terraTocat () {
-        spawnCroqueta();
-
-        vides -= 1;
-        dibuixarVides();       
-    }
-
     function dibuixarEntrepa () {
         entrepa.setTexture(spritesEntrepa[nCroquetes]);
     }
 
+    function terraTocat () {
+        if (modeMenjar == 0) {
+            vides -= 1;
+            dibuixarVides(); 
+        }     
+        spawnCroqueta();        
+    }   
+
     function entrepaTocat () {
-        spawnCroqueta();
+        if (modeMenjar == 0) {
+            spawnCroqueta();
 
-        minGravetat += 20;
-        maxGravetat += 20;
-
-        nCroquetes++;        
-
-        if (nCroquetes == 5) {
-            timerbomba = getRandomInt(0, 4);
-            nCroquetes = 0;
-            punts += 100;
+            minGravetat += 20;
+            maxGravetat += 20;
+            punts += 10;
             puntsText.setText(punts);
-        }
-        
-        dibuixarEntrepa();
+            nCroquetes++;        
+
+            if (nCroquetes == 5) {
+                timerbomba = getRandomInt(0, 4);
+                nCroquetes = 0;
+                punts += 100;
+                puntsText.setText(punts);
+            }
+            
+            dibuixarEntrepa();
+        } else if (modeMenjar == 1) { 
+            if (vides < 3)  {
+                ++vides;
+                if (estat == 1) {
+                    let mySound = new Audio('assets/sons/formatge.mp3');
+                    mySound.play();
+                }
+            }
+            dibuixarVides();
+            //modeMenjar = 0;
+            spawnCroqueta();
+        }         
     }   
 
     function abs (n) {
