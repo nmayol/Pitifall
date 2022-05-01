@@ -35,7 +35,7 @@
     var limitEsquerra = 200;
     var limitDreta = 1240;
     var limitSuperior = 300;
-    var movLateral = 40;
+    var movLateral = 20;
 
     //FORMATGES VIDA
     var ampladaFormatge = 175;
@@ -64,6 +64,8 @@
     var timerBomba = -1; //a quina croqueta surt la bomba
     
     var cursors;
+    var dretaPressed;
+    var esquerraPressed;
 
     var punts;
     var vides;
@@ -139,14 +141,23 @@
         //FLETXA DRETA
         fletxaDreta = this.add.sprite(1240, 2300, 'fletxaDreta').setInteractive();
         fletxaDreta.on('pointerdown', function () {            
-            moureDreta();
+            //moureDreta();
+            dretaPressed = 1;
+        });
+        fletxaDreta.on('pointerup', function () {            
+            //moureDreta();
+            dretaPressed = 0;
         });
         fletxaDreta.setScale(3);
 
         //FLETXA ESQUERRA
         fletxaEsquerra = this.add.sprite(200, 2300, 'fletxaEsquerra').setInteractive();
         fletxaEsquerra.on('pointerdown', function () {            
-            moureEsquerra();
+            //moureEsquerra();
+            esquerraPressed = 1;
+        });
+        fletxaDreta.on('pointerup', function () {           
+            esquerraPressed = 0;
         });
         fletxaEsquerra.setScale(3);
 
@@ -225,6 +236,7 @@
             if (vides <= 0) {
                 perdut();
             }
+            if (dretaPressed == 1) moureDreta();
         } else {
             croqueta.visible = false;
             croqueta.enable = false;
@@ -444,13 +456,13 @@
             nCroquetes++;        
 
             if (nCroquetes == 5) {
+                let mySound = new Audio('assets/sons/pitiflis.mp3');
+                mySound.play();
+
                 timerbomba = getRandomInt(0, 4);
                 nCroquetes = 0;
                 punts += 100;
-                puntsText.setText(punts);
-
-                let mySound = new Audio('assets/sons/pitiflis.mp3');
-                mySound.play();
+                puntsText.setText(punts);                
             }
             
             dibuixarEntrepa();
