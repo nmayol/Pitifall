@@ -35,7 +35,7 @@
     var limitEsquerra = 200;
     var limitDreta = 1240;
     var limitSuperior = 300;
-    var movLateral = 10;
+    var movLateral = 13;
 
     //FORMATGES VIDA
     var ampladaFormatge = 175;
@@ -184,9 +184,9 @@
         this.physics.add.collider(bomba, entrepa, bombaEntrepa);
 
         //TEXTS
-        fotoPunts = this.add.image(180, 60, 'tPunts');
-        fotoVides = this.add.image(180, 210, 'tVides');
-        puntsText = this.add.text(340, 15, '0', { fontSize: '128px', fill: '#000' });
+        fotoPunts = this.add.image(190, 80, 'tPunts');
+        fotoVides = this.add.image(190, 220, 'tVides');
+        puntsText = this.add.text(360, 20, '0', { fontSize: '128px', fill: '#000' });
         fotoPunts.setScale(2);
         fotoVides.setScale(2);       
 
