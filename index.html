@@ -287,6 +287,8 @@
         spawnCroqueta();
         dibuixarEntrepa();
         
+        let mySound = new Audio('inici.mp3')
+        mySound.play()
         estat = 1;
     }
 
@@ -309,6 +311,9 @@
         formatge.body.enable = false;
 
         botoReiniciar.visible = true;
+
+        let mySound = new Audio('final.mp3')
+        mySound.play()
 
         estat = 2;
     }
