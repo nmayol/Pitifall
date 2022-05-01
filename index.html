@@ -230,7 +230,7 @@
 
         //BOTO REINICIAR
         botoReiniciar = this.add.sprite(720, 1250, 'botoReiniciar').setInteractive();
-        botoReiniciar.setScale(10);
+        botoReiniciar.setScale(12);
         botoReiniciar.on('pointerdown', function () {
             pantallaInici();
         });
@@ -241,10 +241,9 @@
     }
 
     function update () {
-        //puntsText.setText(modeMenjar);
         if (estat == 0) {
-            menjar.visible = false;
-            menjar.enable = false;
+            //menjar.visible = false;
+            //menjar.enable = false;
         }
         else if (estat == 1) {
             if (dretaPressed) moureDreta();
@@ -253,10 +252,7 @@
             if (vides <= 0) {
                 perdut();
             }
-        } else {
-            croqueta.visible = false;
-            croqueta.enable = false;
-        }     
+        }    
     }
 
     //PANTALLA INICI 
@@ -278,7 +274,6 @@
 
         botoPlay.visible = true;
         botoInstruccions.visible = true;
-        botoReiniciar.visible = false;
     }
 
     //PANTALLA JOC
@@ -286,7 +281,6 @@
         f1.visible = true;
         f2.visible = true;
         f3.visible = true;
-        //croqueta.visible = true;
         entrepa.visible = true;
         fletxaDreta.visible = true;
         fletxaEsquerra.visible = true;
@@ -322,7 +316,6 @@
         f1.visible = false;
         f2.visible = false;
         f3.visible = false;
-        //croqueta.visible = false;
         terra.visible = false;
         entrepa.visible = false;
         fletxaDreta.visible = false;
@@ -491,7 +484,6 @@
                 }
             }
             dibuixarVides();
-            //modeMenjar = 0;
             spawnCroqueta();
         }         
     }   
