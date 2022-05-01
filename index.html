@@ -346,6 +346,7 @@
             aux = getRandomInt(limitEsquerra, limitDreta);
             formatge.x = aux;
             countFormatge = maxFormatge;
+            
 
             //puntsText.setText("z");
         } else {
@@ -371,7 +372,8 @@
         bomba.visible = true;
         bomba.body.gravity.y = 300;
        
-        
+        let mySound = new Audio('bomba.mp3');
+        mySound.play();
         var aux = getRandomInt(limitEsquerra, limitDreta);
 
         while (abs(aux-xcroqueta) <= 500) aux = getRandomInt(limitEsquerra, limitDreta);
@@ -413,7 +415,12 @@
         formatge.body.enable = false;       
         
 
-        if (vides < 3) ++vides;
+        if (vides < 3)  {
+            ++vides;
+
+            let mySound = new Audio('formatge.mp3');
+            mySound.play();
+        }
         dibuixarVides();
 
         spawnCroqueta();
