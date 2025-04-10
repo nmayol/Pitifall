@@ -4,5 +4,5 @@ Pitiflí is a croquettes and cheese sandwich that was created years ago in Barce
 The authors of the project are:
 * [Jordi Palomera](https://github.com/jordipalomeraa)
 * [Pol Verdura](https://github.com/pverdura)
-* Susanna Jané
+* [Susanna Jané](https://github.com/susssss23)
 * [Neus Mayol](https://github.com/nmayol)
